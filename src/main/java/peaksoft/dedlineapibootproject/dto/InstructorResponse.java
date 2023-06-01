@@ -6,10 +6,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+
 public class InstructorResponse {
     private Long id;
     private String  firstName;
     private String  lastName;
     private String  specialization;
+
+    public InstructorResponse(Long id, String firstName, String lastName, String specialization) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.specialization = specialization;
+    }
 }

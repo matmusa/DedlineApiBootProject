@@ -29,6 +29,7 @@ public class Student {
     private String email;
     private StudyFormat studyFormat;
     private Gender gender;
+    private Boolean isBlocked;
     @ManyToOne(cascade = {
             CascadeType.MERGE,
     CascadeType.DETACH,

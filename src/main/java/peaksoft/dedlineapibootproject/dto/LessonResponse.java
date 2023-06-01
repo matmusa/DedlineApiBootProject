@@ -6,8 +6,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class LessonResponse {
     private Long id;
     private String LessonName;
+
+    public LessonResponse(Long id, String lessonName) {
+        this.id = id;
+        LessonName = lessonName;
+    }
 }

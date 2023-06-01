@@ -37,6 +37,4 @@ public class Lesson {
                     CascadeType.REFRESH})
     private List<Task>tasks;
 
-
-
 }

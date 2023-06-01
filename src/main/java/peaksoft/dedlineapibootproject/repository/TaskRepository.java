@@ -16,7 +16,7 @@ public interface TaskRepository extends JpaRepository<Task,Long> {
             "(t.id,t.taskName,t.taskText)from Task t")
     List<TaskResponse>getAllTasks();
 
-    Optional<TaskResponse>findTaskById(Long id);
+    Optional<Task>findTaskById(Long id);
 
 
 

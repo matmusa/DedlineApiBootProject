@@ -2,54 +2,42 @@ package peaksoft.dedlineapibootproject.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import peaksoft.dedlineapibootproject.dto.*;
 import peaksoft.dedlineapibootproject.service.CompanyService;
+import peaksoft.dedlineapibootproject.service.CourseService;
 
 import java.util.List;
 
 
-
     @RestController
-    @RequestMapping("/companies")
+    @RequestMapping("/courses")
     @RequiredArgsConstructor
-    public class CourseApi {
-        private final CompanyService service;
+    public class CourseApi  {
+        private final CourseService service;
 
-//        @GetMapping
-//        public List<StudentResponce> getAllStudents() {
-//            return service.getAllStudents();
-//
-//        }
-//
-//        @PostMapping("/save")
-//        public StudentResponce saveStudent(@RequestBody StudentRequest studentRequest) {
-//            return service.saveStudent(studentRequest);
-//        }
-//        @GetMapping("/{id}")
-//        public StudentResponce getStudentById(@PathVariable Long id){
-//            return   service.getStudentsById(id);
-//        }
-//        @PutMapping("/{id}")
-//        public Student updateStudent(@PathVariable Long id,@RequestBody  Student student){
-//            return service.updateStudent(id,student);
-//
-//        }
-//
-//        @DeleteMapping("/{id}")
-//        public String deleteStudentById(@PathVariable Long id){
-//            service.deleteStudent(id);
-//            return "Student with "+id+"  deleted";
-//        }
-//        @GetMapping("/block")
-//        public  List<StudentResponce>getAllStudentByBlockedOrUnBlocked(@RequestParam(required = false) boolean isBlocked){
-//            return service.getAllStudentByBlockerOrNotBlocked(isBlocked);
-//
-//        }
-//        @PostMapping
-//        public SimpleResponse blockUnOrUnBlock(@PathVariable Long id,@RequestParam (required = false) boolean isBlocked){
-//            return service.blockOrUnBlock(id,isBlocked);
-//        }
-//
+
+        @GetMapping
+        public List<CourseResponse> getAllCourses() {
+            return service.getAllCourses();
+
+        }
+        @PostMapping("/save")
+        public CourseResponse saveCourses(@RequestBody CourseRequest courseRequest,@PathVariable Long id) {
+            return service.saveCourse(courseRequest,id);
+        }
+        @GetMapping("/{id}")
+        public CourseResponse getCoursesById(@PathVariable Long id){
+            return   service.getCourseById(id);
+        }
+        @PutMapping("/{id}")
+        public CourseResponse  updateCourses(@PathVariable Long id,@RequestBody CourseRequest courseRequest){
+            return service.updateCourse(id,courseRequest);
+
+        }
+        @DeleteMapping("/{id}")
+        public SimpleResponse deleteCourseById(@PathVariable Long id){
+            service.deleteCourseById(id);
+            return new SimpleResponse("DELETED",  "Course with "+id+"  deleted");
+        }
 
     }
-
-

@@ -1,9 +1,6 @@
 package peaksoft.dedlineapibootproject.service;
 
-import peaksoft.dedlineapibootproject.dto.StudentRequest;
-import peaksoft.dedlineapibootproject.dto.StudentResponse;
-import peaksoft.dedlineapibootproject.dto.TaskRequest;
-import peaksoft.dedlineapibootproject.dto.TaskResponse;
+import peaksoft.dedlineapibootproject.dto.*;
 
 import java.util.List;
 
@@ -12,5 +9,5 @@ public interface TaskService {
     TaskResponse getTaskById(Long id);
     List<TaskResponse> getAllTask();
     TaskResponse updateTaskById(Long id,TaskRequest taskRequestRequest);
-    void deleteTaskById(Long id);
+    SimpleResponse deleteTaskById(Long id);
 }

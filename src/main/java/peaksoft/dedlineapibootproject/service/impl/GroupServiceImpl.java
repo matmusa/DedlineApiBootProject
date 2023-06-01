@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import peaksoft.dedlineapibootproject.dto.CourseResponse;
 import peaksoft.dedlineapibootproject.dto.GroupRequest;
 import peaksoft.dedlineapibootproject.dto.GroupResponse;
+import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.entity.Course;
 import peaksoft.dedlineapibootproject.entity.Group;
 import peaksoft.dedlineapibootproject.repository.GroupRepository;
@@ -34,7 +35,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupResponse getGroupById(Long id) {
-        Group group = new Group();
+        Group group =
         groupRepository.findGroupById(id).orElseThrow(()
                 -> new NullPointerException("Group with id " + id + "  is not found "));
         return new GroupResponse(
@@ -66,14 +67,15 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void deleteGroupById(Long id) {
+    public SimpleResponse deleteGroupById(Long id) {
         boolean exist = groupRepository.existsById(id);
         if (!exist) {
             throw new NoSuchElementException
                     ("Group with id: " + id + " is not found");
         }
         groupRepository.deleteById(id);
-        System.out.println("Group with id: " + id + " is deleted");
+        return new SimpleResponse("DELETED","Group with id: " + id + " is deleted");
+
     }
     }
 

@@ -18,7 +18,7 @@ public interface InstructorRepository extends JpaRepository<Instructor, Long> {
             "(i.id,i.firstName,i.lastName,i.specialization)from Instructor i")
     List<InstructorResponse> getAllInstructors();
 
-    Optional<InstructorResponse> findInstructorById(Long id);
+    Optional<Instructor> findInstructorById(Long id);
 
 
 }

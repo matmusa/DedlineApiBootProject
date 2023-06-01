@@ -9,7 +9,7 @@ public interface StudentService {
     StudentResponse getStudentById(Long id);
     List<StudentResponse> getAllStudents();
     StudentResponse updateStudentById(Long id,StudentRequest studentRequest);
-    void deleteStudentById(Long id);
+    SimpleResponse deleteStudentById(Long id);
     List<StudentResponse> getAllStudentByBlockerOrNotBlocked(boolean isBlocked);
     SimpleResponse blockOrUnBlock(Long id, Boolean isBlocked);
 }

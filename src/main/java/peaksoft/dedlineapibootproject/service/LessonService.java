@@ -9,5 +9,5 @@ public interface LessonService {
     LessonResponse getLessonById(Long id);
     List<LessonResponse> getAllLessons();
     LessonResponse updateLessonById(Long id, LessonRequest lessonRequest);
-    void deleteLessonById(Long id);
+    SimpleResponse deleteLessonById(Long id);
 }

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import peaksoft.dedlineapibootproject.dto.CompanyResponse;
 import peaksoft.dedlineapibootproject.dto.CourseRequest;
 import peaksoft.dedlineapibootproject.dto.CourseResponse;
+import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.entity.Company;
 import peaksoft.dedlineapibootproject.entity.Course;
 import peaksoft.dedlineapibootproject.repository.CompanyRepository;
@@ -43,7 +44,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponse getCourseById(Long id) {
-        Course course = new Course();
+        Course course =
         courseRepository.findCourseById(id).orElseThrow(()
                 -> new NullPointerException("Course with id " + id + "  is not found "));
         return new CourseResponse(
@@ -76,14 +77,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void deleteCourseById(Long id) {
+    public SimpleResponse deleteCourseById(Long id) {
         boolean exist = courseRepository.existsById(id);
         if (!exist) {
             throw new NoSuchElementException
                     ("Course with id: " + id + " is not found");
         }
         courseRepository.deleteById(id);
-        System.out.println("Course with id: " + id + " is deleted");
+        return new SimpleResponse("DELETED","Course with id: " + id + " is deleted");
+
     }
     }
 

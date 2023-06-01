@@ -15,7 +15,7 @@ public interface GroupRepository extends JpaRepository<Group,Long> {
             "g.id,g.groupName,g.imageLink,g.description)from Group g")
     List<GroupResponse>getAllCompanies();
 
-    Optional<GroupResponse>findGroupById(Long id);
+    Optional<Group>findGroupById(Long id);
 
 
 }

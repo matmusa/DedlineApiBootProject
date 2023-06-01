@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import peaksoft.dedlineapibootproject.dto.CompanyRequest;
 import peaksoft.dedlineapibootproject.dto.CompanyResponse;
+import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.entity.Company;
 import peaksoft.dedlineapibootproject.repository.CompanyRepository;
 import peaksoft.dedlineapibootproject.service.CompanyService;
@@ -23,7 +24,7 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = new Company();
         company.setName(companyRequest.getName());
         company.setAddress(companyRequest.getAddress());
-        company.setPhoneNumber(company.getPhoneNumber());
+        company.setPhoneNumber(companyRequest.getPhoneNumber());
         company.setCountry(companyRequest.getCountry());
         companyRepository.save(company);
         return new CompanyResponse(
@@ -67,17 +68,18 @@ public class CompanyServiceImpl implements CompanyService {
                 company.getName(),
                 company.getCountry(),
                 company.getAddress(),
-                company.getPhoneNumber()) ;
+                company.getPhoneNumber());
     }
 
     @Override
-    public void deleteCompanyById(Long id) {
+    public SimpleResponse deleteCompanyById(Long id) {
         boolean exist = companyRepository.existsById(id);
         if (!exist) {
             throw new NoSuchElementException
                     ("Student with id: " + id + " is not found");
         }
         companyRepository.deleteById(id);
-        System.out.println("Student with id: " + id + " is deleted");
+        return new SimpleResponse("DELETED", "Company with id deleted");
+
     }
 }

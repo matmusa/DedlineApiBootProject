@@ -1,9 +1,7 @@
 package peaksoft.dedlineapibootproject.service;
 
-import peaksoft.dedlineapibootproject.dto.GroupRequest;
-import peaksoft.dedlineapibootproject.dto.GroupResponse;
-import peaksoft.dedlineapibootproject.dto.InstructorRequest;
-import peaksoft.dedlineapibootproject.dto.InstructorResponse;
+import jdk.dynalink.linker.support.SimpleLinkRequest;
+import peaksoft.dedlineapibootproject.dto.*;
 
 import java.util.List;
 
@@ -16,6 +14,6 @@ public interface InstructorService {
 
     InstructorResponse updateInstructorById(Long id, InstructorRequest instructorRequest);
 
-    void deleteInstructorById(Long id);
+    SimpleResponse deleteInstructorById(Long id);
 
 }

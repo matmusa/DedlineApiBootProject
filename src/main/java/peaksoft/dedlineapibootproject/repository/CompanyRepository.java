@@ -6,6 +6,7 @@ import peaksoft.dedlineapibootproject.dto.CompanyRequest;
 import peaksoft.dedlineapibootproject.dto.CompanyResponse;
 import peaksoft.dedlineapibootproject.dto.StudentResponse;
 import peaksoft.dedlineapibootproject.entity.Company;
+import peaksoft.dedlineapibootproject.entity.Student;
 
 import java.util.Comparator;
 import java.util.List;
@@ -19,5 +20,5 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
 
     Optional<CompanyResponse>getCompanyById(Long id);
 
-    Optional<CompanyResponse>updateCompanyById(Long id, CompanyRequest companyRequest);
+
 }

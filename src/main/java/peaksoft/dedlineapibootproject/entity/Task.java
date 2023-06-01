@@ -1,10 +1,17 @@
 package peaksoft.dedlineapibootproject.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "tasks")
 public class Task {
     @Id

@@ -15,6 +15,6 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
     @Query("select new peaksoft.dedlineapibootproject.dto.CourseResponse" +
             "(c.id,c.courseName,c.dateOfStart,c.description)from Course c")
     List<CourseResponse>getAllCourses();
-    Optional<CourseResponse>findCourseById(Long id);
+    Optional<Course>findCourseById(Long id);
 
 }

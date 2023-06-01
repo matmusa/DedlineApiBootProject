@@ -6,11 +6,13 @@ import org.springframework.transaction.annotation.Transactional;
 import peaksoft.dedlineapibootproject.dto.GroupRequest;
 import peaksoft.dedlineapibootproject.dto.InstructorRequest;
 import peaksoft.dedlineapibootproject.dto.InstructorResponse;
+import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.entity.Instructor;
 import peaksoft.dedlineapibootproject.repository.InstructorRepository;
 import peaksoft.dedlineapibootproject.service.InstructorService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -20,7 +22,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public InstructorResponse saveInstructor(InstructorRequest instructorRequest) {
-        Instructor instructor=new Instructor();
+        Instructor instructor = new Instructor();
         instructor.setFirstName(instructor.getFirstName());
         instructor.setLastName(instructor.getLastName());
         instructor.setSpecialization(instructorRequest.getSpecialization());
@@ -34,7 +36,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public InstructorResponse getInstructorById(Long id) {
-        Instructor instructor=new Instructor();
+        Instructor instructor = new Instructor();
         instructorRepository.findInstructorById(id).orElseThrow(()
                 -> new NullPointerException("Instructor with id " + id + "  is not found "));
         return new InstructorResponse(
@@ -51,20 +53,30 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public InstructorResponse updateInstructorById(Long id, InstructorRequest instructorRequest) {
-        Instructor instructor=new Instructor();
-        instructorRepository.findInstructorById(id).orElseThrow(()
-                -> new NullPointerException("Instructor with id " + id + "  is not found "));
+        Instructor instructor =
+                instructorRepository.findInstructorById(id).orElseThrow(()
+                        -> new NullPointerException("Instructor with id " + id + "  is not found "));
         instructor.setFirstName(instructorRequest.getFirstName());
         instructor.setLastName(instructorRequest.getLastName());
         instructor.setSpecialization(instructorRequest.getSpecialization());
+        instructorRepository.save(instructor);
         return new InstructorResponse(
                 instructor.getId(),
                 instructor.getFirstName(),
-                instructor.getLastName());
+                instructor.getLastName(),
+                instructor.getSpecialization());
     }
 
     @Override
-    public void deleteInstructorById(Long id) {
+    public SimpleResponse deleteInstructorById(Long id) {
+        boolean exist = instructorRepository.existsById(id);
+        if (!exist) {
+            throw new NoSuchElementException
+                    ("Instructor with id: " + id + " is not found");
+        }
+        instructorRepository.deleteById(id);
+        return new SimpleResponse("DELETED","Instructor with id: " + id + " is deleted");
 
     }
 }
+

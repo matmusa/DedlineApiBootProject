@@ -22,5 +22,6 @@ public class CompanyResponse {
         this.country = country;
         this.address = address;
         this.phoneNumber = phoneNumber;
+
     }
 }

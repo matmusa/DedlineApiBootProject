@@ -3,12 +3,15 @@ package peaksoft.dedlineapibootproject.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.dto.TaskRequest;
 import peaksoft.dedlineapibootproject.dto.TaskResponse;
+import peaksoft.dedlineapibootproject.entity.Task;
 import peaksoft.dedlineapibootproject.repository.TaskRepository;
 import peaksoft.dedlineapibootproject.service.TaskService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -18,26 +21,55 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse saveTask(TaskRequest taskRequest) {
-        return null;
+        Task task = new Task();
+        task.setTaskName(taskRequest.getTaskName());
+        task.setTaskText(taskRequest.getTaskText());
+        taskRepository.save(task);
+        return new TaskResponse(
+                task.getId(),
+                task.getTaskName(),
+                task.getTaskText());
     }
 
     @Override
     public TaskResponse getTaskById(Long id) {
-        return null;
+        Task task = new Task();
+        taskRepository.findTaskById(id).orElseThrow(() ->
+                new NullPointerException("Lesson with id " + id + "  is not found "));
+        return new TaskResponse(
+                task.getId(),
+                task.getTaskName(),
+                task.getTaskText());
     }
 
     @Override
     public List<TaskResponse> getAllTask() {
-        return null;
+        return taskRepository.getAllTasks();
     }
 
     @Override
     public TaskResponse updateTaskById(Long id, TaskRequest taskRequestRequest) {
-        return null;
+
+        Task task = taskRepository.findTaskById(id).orElseThrow(() ->
+                new NullPointerException("Lesson with id " + id + "  is not found "));
+        task.setTaskName(taskRequestRequest.getTaskName());
+        task.setTaskText(taskRequestRequest.getTaskText());
+        taskRepository.save(task);
+        return new TaskResponse(
+                task.getId(),
+                task.getTaskName(),
+                task.getTaskText());
     }
 
     @Override
-    public void deleteTaskById(Long id) {
+    public SimpleResponse deleteTaskById(Long id) {
+        boolean exist = taskRepository.existsById(id);
+        if (!exist) {
+            throw new NoSuchElementException
+                    ("Student with id: " + id + " is not found");
+        }
+        taskRepository.deleteById(id);
+        return new SimpleResponse("DELETED","Student with id: " + id + " is deleted");
 
     }
 }

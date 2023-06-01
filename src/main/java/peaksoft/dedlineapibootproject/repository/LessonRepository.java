@@ -13,6 +13,6 @@ public interface LessonRepository extends JpaRepository<Lesson,Long> {
     @Query("select new peaksoft.dedlineapibootproject.dto.LessonResponse(l.id,l.LessonName)from Lesson l")
     List<LessonResponse>getAllLessons();
 
-    Optional<LessonResponse>findLessonById(Long id);
+    Optional<Lesson>findLessonById(Long id);
 
 }

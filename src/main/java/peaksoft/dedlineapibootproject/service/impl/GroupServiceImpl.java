@@ -9,6 +9,7 @@ import peaksoft.dedlineapibootproject.dto.GroupResponse;
 import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.entity.Course;
 import peaksoft.dedlineapibootproject.entity.Group;
+import peaksoft.dedlineapibootproject.repository.CourseRepository;
 import peaksoft.dedlineapibootproject.repository.GroupRepository;
 import peaksoft.dedlineapibootproject.service.GroupService;
 
@@ -20,24 +21,31 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
     private final GroupRepository groupRepository;
+    private final CourseRepository courseRepository;
 
     @Override
-    public GroupResponse saveGroup(GroupRequest groupRequest) {
+    public GroupResponse saveGroup(Long courseId,GroupRequest groupRequest) {
+        Course course =
+                courseRepository.findCourseById(courseId).orElseThrow(()
+                        -> new NullPointerException("Course with id " + courseId + "  is not found "));
         Group group = new Group();
         group.setGroupName(groupRequest.getGroupName());
         group.setDescription(groupRequest.getDescription());
         group.setImageLink(groupRequest.getImageLink());
+        groupRepository.save(group);
+        course.getGroups().add(group);
+        groupRepository.save(group);
         return new GroupResponse(group.getId(),
                 group.getGroupName(),
-                groupRequest.getImageLink(),
-                groupRequest.getDescription());
+                group.getImageLink(),
+                group.getDescription());
     }
 
     @Override
     public GroupResponse getGroupById(Long id) {
         Group group =
-        groupRepository.findGroupById(id).orElseThrow(()
-                -> new NullPointerException("Group with id " + id + "  is not found "));
+                groupRepository.findGroupById(id).orElseThrow(()
+                        -> new NullPointerException("Group with id " + id + "  is not found "));
         return new GroupResponse(
                 group.getId(),
                 group.getGroupName(),
@@ -53,9 +61,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupResponse updateGroups(Long id, GroupRequest groupRequest) {
-        Group group = new Group();
-        groupRepository.findGroupById(id).orElseThrow(()
-                -> new NullPointerException("Group with id " + id + "  is not found "));
+        Group group =
+                groupRepository.findGroupById(id).orElseThrow(()
+                        -> new NullPointerException("Group with id " + id + "  is not found "));
         group.setGroupName(groupRequest.getGroupName());
         group.setDescription(groupRequest.getDescription());
         group.setImageLink(groupRequest.getImageLink());
@@ -74,8 +82,8 @@ public class GroupServiceImpl implements GroupService {
                     ("Group with id: " + id + " is not found");
         }
         groupRepository.deleteById(id);
-        return new SimpleResponse("DELETED","Group with id: " + id + " is deleted");
+        return new SimpleResponse("DELETED", "Group with id: " + id + " is deleted");
 
     }
-    }
+}
 

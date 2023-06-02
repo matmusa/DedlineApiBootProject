@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 public class CourseRequest {
+
     private String courseName;
-    private LocalDate dateOfStart;
     private String description;
 }

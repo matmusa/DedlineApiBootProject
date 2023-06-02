@@ -55,5 +55,13 @@ import java.util.List;
             return service.blockOrUnBlock(id,isBlocked);
         }
 
+        @PostMapping("/{groupId}/{studentId}")
+        public SimpleResponse assignStudentToGroup(@PathVariable Long groupId,@PathVariable Long studentId){
+            service.assignStudentToGroup(groupId,studentId);
+            return new SimpleResponse(
+                    "assign","student with id "
+                    +studentId+" assign to group with id "+groupId);    }
+        }
 
-    }
+
+

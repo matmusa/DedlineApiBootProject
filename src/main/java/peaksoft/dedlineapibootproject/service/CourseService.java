@@ -5,7 +5,7 @@ import peaksoft.dedlineapibootproject.dto.*;
 import java.util.List;
 
 public interface CourseService {
-    CourseResponse saveCourse(CourseRequest courseRequest,Long companyLongId);
+    CourseResponse saveCourse(CourseRequest courseRequest,Long companyLongId,Long courseId);
 
     CourseResponse getCourseById(Long id);
     List<CourseResponse> getAllCourses();

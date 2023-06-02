@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.dto.StudentRequest;
 import peaksoft.dedlineapibootproject.dto.StudentResponse;
+import peaksoft.dedlineapibootproject.entity.Group;
 import peaksoft.dedlineapibootproject.entity.Student;
+import peaksoft.dedlineapibootproject.repository.GroupRepository;
 import peaksoft.dedlineapibootproject.repository.StudentRepository;
 import peaksoft.dedlineapibootproject.service.StudentService;
 
@@ -18,6 +20,7 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
+    private final GroupRepository groupRepository;
 
     @Override
     public StudentResponse saveStudent(StudentRequest studentRequest) {
@@ -63,8 +66,8 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentResponse updateStudentById(Long id, StudentRequest studentRequest) {
         Student student =
-        studentRepository.findStudentById(id)
-                .orElseThrow(() -> new NullPointerException("Lesson with id " + id + "  is not found "));
+                studentRepository.findStudentById(id)
+                        .orElseThrow(() -> new NullPointerException("Lesson with id " + id + "  is not found "));
         student.setFirstName(studentRequest.getFirstName());
         student.setLastName(studentRequest.getLastName());
         student.setPhoneNumber(studentRequest.getPhoneNumber());
@@ -90,7 +93,7 @@ public class StudentServiceImpl implements StudentService {
                     ("Student with id: " + id + " is not found");
         }
         studentRepository.deleteById(id);
-        return new SimpleResponse("DELETED","Student with id: " + id + " is deleted");
+        return new SimpleResponse("DELETED", "Student with id: " + id + " is deleted");
 
     }
 
@@ -116,4 +119,20 @@ public class StudentServiceImpl implements StudentService {
 
 
     }
+
+    @Override
+    public SimpleResponse assignStudentToGroup(Long groupId, Long studentId) {
+        Group group =
+                groupRepository.findGroupById(groupId).orElseThrow(()
+                        -> new NullPointerException("Group with id " + groupId + "  is not found "));
+        Student student =
+                studentRepository.findStudentById(studentId)
+                        .orElseThrow(() -> new NullPointerException("Lesson with id " + studentId + "  is not found "));
+        group.getStudents().add(student);
+        groupRepository.save(group);
+        student.setGroup(group);
+        studentRepository.save(student);
+        return new SimpleResponse(
+                "assign","student with id "
+                +studentId+" assign to group with id "+groupId);    }
 }

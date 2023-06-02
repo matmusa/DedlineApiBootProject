@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.dto.TaskRequest;
 import peaksoft.dedlineapibootproject.dto.TaskResponse;
+import peaksoft.dedlineapibootproject.entity.Lesson;
 import peaksoft.dedlineapibootproject.entity.Task;
+import peaksoft.dedlineapibootproject.repository.LessonRepository;
 import peaksoft.dedlineapibootproject.repository.TaskRepository;
 import peaksoft.dedlineapibootproject.service.TaskService;
 
@@ -18,13 +20,19 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
+    private final LessonRepository lessonRepository;
 
     @Override
-    public TaskResponse saveTask(TaskRequest taskRequest) {
+    public TaskResponse saveTask(Long lessonId,TaskRequest taskRequest) {
+        Lesson lesson =
+                lessonRepository.findLessonById(lessonId).orElseThrow(()
+                        -> new NullPointerException("Lesson with id " + lessonId + "  is not found "));
         Task task = new Task();
         task.setTaskName(taskRequest.getTaskName());
         task.setTaskText(taskRequest.getTaskText());
         taskRepository.save(task);
+        lesson.getTasks().add(task);
+        lessonRepository.save(lesson);
         return new TaskResponse(
                 task.getId(),
                 task.getTaskName(),

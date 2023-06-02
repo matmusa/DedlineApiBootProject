@@ -42,5 +42,12 @@ import java.util.List;
             return new SimpleResponse("DELETED",  "Instructor with "+id+"  deleted");
         }
 
+        @PostMapping("/{companyId}/{instructorId}")
+        public SimpleResponse assignInstructorToCompany(@PathVariable Long companyId,@PathVariable Long instructorId) {
+         service.assignInstructorToCompany(companyId,instructorId);
+            return new SimpleResponse(
+                    "assign","instructor with id "
+                    +instructorId+" assign to company with id "+companyId);
+        }
 
     }

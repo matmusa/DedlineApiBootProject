@@ -7,7 +7,9 @@ import peaksoft.dedlineapibootproject.dto.GroupRequest;
 import peaksoft.dedlineapibootproject.dto.InstructorRequest;
 import peaksoft.dedlineapibootproject.dto.InstructorResponse;
 import peaksoft.dedlineapibootproject.dto.SimpleResponse;
+import peaksoft.dedlineapibootproject.entity.Company;
 import peaksoft.dedlineapibootproject.entity.Instructor;
+import peaksoft.dedlineapibootproject.repository.CompanyRepository;
 import peaksoft.dedlineapibootproject.repository.InstructorRepository;
 import peaksoft.dedlineapibootproject.service.InstructorService;
 
@@ -19,12 +21,13 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class InstructorServiceImpl implements InstructorService {
     private final InstructorRepository instructorRepository;
+    private final CompanyRepository companyRepository;
 
     @Override
     public InstructorResponse saveInstructor(InstructorRequest instructorRequest) {
         Instructor instructor = new Instructor();
-        instructor.setFirstName(instructor.getFirstName());
-        instructor.setLastName(instructor.getLastName());
+        instructor.setFirstName(instructorRequest.getFirstName());
+        instructor.setLastName(instructorRequest.getLastName());
         instructor.setSpecialization(instructorRequest.getSpecialization());
         instructorRepository.save(instructor);
         return new InstructorResponse(
@@ -65,6 +68,23 @@ public class InstructorServiceImpl implements InstructorService {
                 instructor.getFirstName(),
                 instructor.getLastName(),
                 instructor.getSpecialization());
+    }
+
+    @Override
+    public SimpleResponse assignInstructorToCompany(Long companyId, Long instructorId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() ->
+                        new NullPointerException("User with id " + companyId + "  is not found "));
+        Instructor instructor =
+                instructorRepository.findInstructorById(instructorId).orElseThrow(()
+                        -> new NullPointerException("Instructor with id " + instructorId + "  is not found "));
+        company.getInstructors().add(instructor);
+        companyRepository.save(company);
+        instructorRepository.save(instructor);
+        instructor.getCompanies().add(company);
+        return new SimpleResponse(
+                "assign","instructor with id "
+                +instructorId+" assign to company with id "+companyId);
     }
 
     @Override

@@ -20,9 +20,9 @@ import java.util.List;
 
         }
 
-        @PostMapping("/save")
-        public TaskResponse saveTasks(@RequestBody TaskRequest taskRequest) {
-            return service.saveTask(taskRequest);
+        @PostMapping("/save/{taskId}")
+        public TaskResponse saveTasks(@PathVariable Long taskId, @RequestBody TaskRequest taskRequest) {
+            return service.saveTask(taskId,taskRequest);
         }
         @GetMapping("/{id}")
         public TaskResponse getTaskById(@PathVariable Long id){

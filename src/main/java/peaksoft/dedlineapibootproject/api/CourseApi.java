@@ -21,9 +21,9 @@ import java.util.List;
             return service.getAllCourses();
 
         }
-        @PostMapping("/save")
-        public CourseResponse saveCourses(@RequestBody CourseRequest courseRequest,@PathVariable Long id) {
-            return service.saveCourse(courseRequest,id);
+        @PostMapping("/save/{id}/{instructorId}")
+        public CourseResponse saveCourses(@RequestBody CourseRequest courseRequest,@PathVariable Long id,@PathVariable Long instructorId) {
+            return service.saveCourse(courseRequest,id,instructorId);
         }
         @GetMapping("/{id}")
         public CourseResponse getCoursesById(@PathVariable Long id){

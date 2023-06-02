@@ -23,6 +23,7 @@ public class Lesson {
             allocationSize = 1)
     private Long id;
     private String LessonName;
+    private String description;
     @ManyToOne(
             cascade = {
                     CascadeType.DETACH,

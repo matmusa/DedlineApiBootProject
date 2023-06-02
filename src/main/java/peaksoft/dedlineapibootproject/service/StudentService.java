@@ -12,4 +12,6 @@ public interface StudentService {
     SimpleResponse deleteStudentById(Long id);
     List<StudentResponse> getAllStudentByBlockerOrNotBlocked(boolean isBlocked);
     SimpleResponse blockOrUnBlock(Long id, Boolean isBlocked);
+
+    SimpleResponse assignStudentToGroup(Long groupId,Long studentId);
 }

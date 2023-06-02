@@ -30,10 +30,11 @@ public class Group {
             CascadeType.DETACH,
             CascadeType.MERGE,
             CascadeType.REFRESH})
-    private List<Course>courses;
-    @OneToMany(mappedBy = "group", cascade ={
+    private List<Course> courses;
+    @OneToMany(mappedBy = "group", cascade = {
             CascadeType.DETACH,
             CascadeType.MERGE,
-            CascadeType.REFRESH})
-    private List<Student>students;
+            CascadeType.REFRESH,
+            CascadeType.REMOVE})
+    private List<Student> students;
 }

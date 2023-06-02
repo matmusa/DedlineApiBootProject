@@ -32,7 +32,8 @@ import java.util.List;
         @ManyToMany(mappedBy = "companies",cascade =
                 {CascadeType.DETACH,
                         CascadeType.MERGE,
-                        CascadeType.REFRESH})
+                        CascadeType.REFRESH,
+                CascadeType.REMOVE})
         private List<Instructor>instructors;
 
     }

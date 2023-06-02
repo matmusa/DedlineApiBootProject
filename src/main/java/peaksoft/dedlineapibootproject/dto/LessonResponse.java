@@ -9,9 +9,11 @@ import lombok.Setter;
 public class LessonResponse {
     private Long id;
     private String LessonName;
+    private String description;
 
-    public LessonResponse(Long id, String lessonName) {
+    public LessonResponse(Long id, String lessonName, String description) {
         this.id = id;
         LessonName = lessonName;
+        this.description = description;
     }
 }

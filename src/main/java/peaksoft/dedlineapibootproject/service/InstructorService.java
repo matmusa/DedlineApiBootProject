@@ -14,6 +14,10 @@ public interface InstructorService {
 
     InstructorResponse updateInstructorById(Long id, InstructorRequest instructorRequest);
 
+    SimpleResponse assignInstructorToCompany(Long companyId, Long instructorId);
+
+
     SimpleResponse deleteInstructorById(Long id);
+
 
 }

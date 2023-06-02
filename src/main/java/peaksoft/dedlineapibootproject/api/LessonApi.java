@@ -13,17 +13,13 @@ import java.util.List;
     @RequiredArgsConstructor
     public class LessonApi  {
         private final LessonService service;
-
-
         @GetMapping
         public List<LessonResponse> getAllLessons() {
             return service.getAllLessons();
-
         }
-
-        @PostMapping("/save")
-        public LessonResponse saveLessons(@RequestBody LessonRequest lessonRequest) {
-            return service.saveLesson(lessonRequest);
+        @PostMapping("/save/{courseId}")
+        public LessonResponse saveLessons(@PathVariable Long courseId, @RequestBody LessonRequest lessonRequest) {
+            return service.saveLesson(courseId,lessonRequest);
         }
         @GetMapping("/{id}")
         public LessonResponse getLessons(@PathVariable Long id){

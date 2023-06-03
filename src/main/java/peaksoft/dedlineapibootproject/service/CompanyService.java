@@ -8,9 +8,10 @@ import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import java.util.List;
 
 public interface CompanyService {
-    CompanyResponse saveCompany(Long lessonId,CompanyRequest companyRequest);
+    CompanyResponse saveCompany(CompanyRequest companyRequest);
 
     CompanyResponse getCompanyById(Long id);
+    CompanyResponse getAllCompanyById(Long id);
     List<CompanyResponse> getAllCompanies();
     CompanyResponse updateCompany(Long id,CompanyRequest companyRequest);
 

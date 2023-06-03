@@ -11,4 +11,7 @@ public interface GroupService {
     List<GroupResponse> getAllGroups();
     GroupResponse updateGroups(Long id,GroupRequest groupRequest);
     SimpleResponse deleteGroupById(Long id);
+    List <GroupResponse>getAllStudentCountFromCourse(Long courseId);
+
+    SimpleResponse assignGroupToCourse(Long courseId,Long groupId);
 }

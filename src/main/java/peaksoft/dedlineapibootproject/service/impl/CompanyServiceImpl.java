@@ -1,5 +1,6 @@
 package peaksoft.dedlineapibootproject.service.impl;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,9 +8,11 @@ import peaksoft.dedlineapibootproject.dto.CompanyRequest;
 import peaksoft.dedlineapibootproject.dto.CompanyResponse;
 import peaksoft.dedlineapibootproject.dto.SimpleResponse;
 import peaksoft.dedlineapibootproject.entity.Company;
+import peaksoft.dedlineapibootproject.entity.Instructor;
 import peaksoft.dedlineapibootproject.repository.CompanyRepository;
 import peaksoft.dedlineapibootproject.service.CompanyService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -46,6 +49,24 @@ public class CompanyServiceImpl implements CompanyService {
                 company.getAddress(),
                 company.getPhoneNumber());
 
+    }
+
+    @Override
+    public CompanyResponse getAllCompanyById(Long id) {
+        List<Instructor >instructors=new ArrayList<>();
+        Company company = companyRepository.findById(id)
+                .orElseThrow(() ->
+                        new NullPointerException("User with id " + id + "  is not found "));
+        for (Instructor i :company.getInstructors()
+                ) {i.toString();
+        }
+        companyRepository.save(company);
+        return new CompanyResponse(company.getId(),
+                company.getName(),
+                company.getCountry(),
+                company.getAddress(),
+                 company.getPhoneNumber()
+                , );
     }
 
     @Override

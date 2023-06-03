@@ -11,4 +11,8 @@ public class GroupRequest {
     private String groupName;
     private String imageLink;
     private String description;
+
+    public GroupRequest(String groupName) {
+        this.groupName = groupName;
+    }
 }

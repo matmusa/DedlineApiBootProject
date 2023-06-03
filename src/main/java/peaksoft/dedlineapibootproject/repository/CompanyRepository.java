@@ -18,6 +18,12 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
             "(c.id,c.name,c.country,c.address,c.phoneNumber) from Company c")
       List<CompanyResponse>getAllCompanies();
 
+    @Query("select new peaksoft.dedlineapibootproject.dto." +
+            "CompanyResponse(c.id,c.name,c.country,c.address," +
+            "c.phoneNumber,s.id,s.courseName,s.description,s.dateOfStart)" +
+            "from Company c join Course s join s.company  sc where sc.id=c.id " )
+    List<CompanyResponse>getAllCompaniesById(Long id);
+
     Optional<CompanyResponse>getCompanyById(Long id);
 
 

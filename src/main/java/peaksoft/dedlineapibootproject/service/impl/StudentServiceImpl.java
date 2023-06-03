@@ -121,7 +121,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public SimpleResponse assignStudentToGroup(Long groupId, Long studentId) {
+    public SimpleResponse  assignStudentToGroup(Long groupId, Long studentId) {
         Group group =
                 groupRepository.findGroupById(groupId).orElseThrow(()
                         -> new NullPointerException("Group with id " + groupId + "  is not found "));

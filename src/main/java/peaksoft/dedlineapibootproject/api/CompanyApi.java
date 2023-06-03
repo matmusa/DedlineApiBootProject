@@ -41,5 +41,10 @@ import java.util.List;
             return new SimpleResponse("DELETED",  "Company with "+id+"  deleted");
         }
 
+        @GetMapping("/{companyId}")
+        public CompanyResponse getAllCompaniesById(@PathVariable Long companyId,CompanyRequest companyRequest){
+            return service.getAllCompanyById(companyId,companyRequest);
+        }
+
 
     }

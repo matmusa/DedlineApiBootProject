@@ -25,15 +25,10 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupResponse saveGroup(Long courseId,GroupRequest groupRequest) {
-        Course course =
-                courseRepository.findCourseById(courseId).orElseThrow(()
-                        -> new NullPointerException("Course with id " + courseId + "  is not found "));
         Group group = new Group();
         group.setGroupName(groupRequest.getGroupName());
         group.setDescription(groupRequest.getDescription());
         group.setImageLink(groupRequest.getImageLink());
-        groupRepository.save(group);
-        course.getGroups().add(group);
         groupRepository.save(group);
         return new GroupResponse(group.getId(),
                 group.getGroupName(),
@@ -56,7 +51,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<GroupResponse> getAllGroups() {
-        return groupRepository.getAllCompanies();
+        return groupRepository.getAllGroup();
     }
 
     @Override
@@ -84,6 +79,23 @@ public class GroupServiceImpl implements GroupService {
         groupRepository.deleteById(id);
         return new SimpleResponse("DELETED", "Group with id: " + id + " is deleted");
 
+    }
+
+    @Override
+    public SimpleResponse assignGroupToCourse(Long courseId, Long groupId) {
+        Course course =
+                courseRepository.findCourseById(courseId).orElseThrow(()
+                        -> new NullPointerException("Course with id " + courseId + "  is not found "));
+        Group group =
+                groupRepository.findGroupById(groupId).orElseThrow(()
+                        -> new NullPointerException("Group with id " + groupId+ "  is not found "));
+         course.getGroups().add(group);
+         courseRepository.save(course);
+         group.getCourses().add(course);
+         courseRepository.save(course);
+        return new SimpleResponse(
+                "assign","group with id "
+                +groupId+" assign to course with id "+courseId);
     }
 }
 

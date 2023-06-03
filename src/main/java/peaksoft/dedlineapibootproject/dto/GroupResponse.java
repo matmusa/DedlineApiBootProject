@@ -13,6 +13,10 @@ public class GroupResponse {
     private String imageLink;
     private String description;
 
+    public GroupResponse(String groupName) {
+        this.groupName = groupName;
+    }
+
     public GroupResponse(Long id, String groupName, String imageLink, String description) {
         this.id = id;
         this.groupName = groupName;

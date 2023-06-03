@@ -13,6 +13,10 @@ public class InstructorResponse {
     private String  lastName;
     private String  specialization;
 
+    public InstructorResponse(String firstName) {
+        this.firstName = firstName;
+    }
+
     public InstructorResponse(Long id, String firstName, String lastName, String specialization) {
         this.id = id;
         this.firstName = firstName;

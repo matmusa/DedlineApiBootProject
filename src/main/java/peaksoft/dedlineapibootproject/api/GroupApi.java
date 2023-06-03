@@ -22,9 +22,9 @@ import java.util.List;
 
         }
 
-        @PostMapping("/save")
-        public GroupResponse saveGroup(@RequestBody GroupRequest groupRequest) {
-            return service.saveGroup(groupRequest);
+        @PostMapping("/save/{courseId}")
+        public GroupResponse saveGroup(@PathVariable Long courseId,@RequestBody GroupRequest groupRequest) {
+            return service.saveGroup(courseId,groupRequest);
         }
         @GetMapping("/{id}")
         public GroupResponse getGroupById(@PathVariable Long id){
@@ -41,6 +41,13 @@ import java.util.List;
         public SimpleResponse deleteGroupById(@PathVariable Long id){
             service.deleteGroupById(id);
             return new SimpleResponse("DELETED",  "Group with "+id+"  deleted");
+        }
+        @PostMapping({"/{courseId}/{groupId}"})
+        public SimpleResponse assignGroupToCourse(@PathVariable Long courseId,@PathVariable Long groupId){
+            service.assignGroupToCourse(courseId,groupId);
+            return new SimpleResponse(
+                    "assign","instructor with id "
+                    +courseId+" assign to company with id "+groupId);
         }
 
     }

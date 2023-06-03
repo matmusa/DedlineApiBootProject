@@ -15,7 +15,6 @@ import java.util.List;
     public class InstructorApi  {
         private final InstructorService service;
 
-
         @GetMapping
         public List<InstructorResponse> getAllInstructors() {
             return service.getAllInstructors();
@@ -49,5 +48,15 @@ import java.util.List;
                     "assign","instructor with id "
                     +instructorId+" assign to company with id "+companyId);
         }
+
+
+        @GetMapping("all/{instructorId}")
+        public InstructorGetAllInformation  getAllInformationFromInstructorById(@PathVariable Long instructorId) {
+
+               return  service.getAllInformationInstructorById(instructorId);
+
+
+        }
+
 
     }

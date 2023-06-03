@@ -16,12 +16,35 @@ public interface InstructorRepository extends JpaRepository<Instructor, Long> {
 
 
 
-    @Query("select new peaksoft.dedlineapibootproject.dto.InstructorResponse" +
-            "(i.id,i.firstName,i.lastName,i.specialization)from Instructor i")
-    List<InstructorResponse> getAllInstructors();
+//
+   Optional<Instructor> findInstructorById(Long id);
+//
+//    @Query("select icg.groupName from " +
+//            "Instructor i join i.courses ic " +
+//            "join Group.id g join ic.groups icg where g.id=icg.id and i.id=:instructorId  ")
+//    List<String> groupName(@Param("instructorId") Long instructorId);
+//
+//    @Query("select count(s.id)from " +
+//            "Instructor i join i.courses ic " +
+//            "join Group.id g join ic.groups icg join Student s " +
+//            "join s.group sg where sg.id=icg.id and i.id=:instructorId  ")
+//    int studentCount(@Param("instructorId") Long instructorId);
 
-    Optional<Instructor> findInstructorById(Long id);
 
+  //  @Query("select new peaksoft.dedlineapibootproject.dto.InstructorResponse(i.id, i.firstName, i.id.lastName, i.specialization) from Instructor i where i.id = :id")
+  //  Optional<Instructor> findInstructorById(Long id);
 
+    @Query("select new peaksoft.dedlineapibootproject.dto.InstructorResponse(i.id, i.firstName, i.lastName,  i.specialization) from Instructor i")
+    List<InstructorResponse> getAllInstructor();
 
+    @Query("select count(s) from Instructor i join i.courses c join  c.groups g join g.students s where i.id=:instructorId")
+    int getAllStudentSize(Long instructorId);
+
+    @Query("select g.groupName from Instructor i join i.courses c join  c.groups g where i.id =:instructorId")
+    List<String> getAllGroupName(Long instructorId);
 }
+
+
+
+
+

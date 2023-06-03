@@ -3,10 +3,7 @@ package peaksoft.dedlineapibootproject.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import peaksoft.dedlineapibootproject.dto.GroupRequest;
-import peaksoft.dedlineapibootproject.dto.InstructorRequest;
-import peaksoft.dedlineapibootproject.dto.InstructorResponse;
-import peaksoft.dedlineapibootproject.dto.SimpleResponse;
+import peaksoft.dedlineapibootproject.dto.*;
 import peaksoft.dedlineapibootproject.entity.Company;
 import peaksoft.dedlineapibootproject.entity.Instructor;
 import peaksoft.dedlineapibootproject.repository.CompanyRepository;
@@ -51,7 +48,7 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public List<InstructorResponse> getAllInstructors() {
-        return instructorRepository.getAllInstructors();
+        return instructorRepository.getAllInstructor();
     }
 
     @Override
@@ -68,6 +65,22 @@ public class InstructorServiceImpl implements InstructorService {
                 instructor.getFirstName(),
                 instructor.getLastName(),
                 instructor.getSpecialization());
+    }
+
+    @Override
+    public InstructorGetAllInformation getAllInformationInstructorById(Long id) {
+        Instructor instructor =
+                instructorRepository.findInstructorById(id).orElseThrow(()
+                        -> new NullPointerException("Instructor with id " + id + "  is not found "));
+        return InstructorGetAllInformation.builder()
+                .id(instructor.getId())
+                .firstName(instructor.getFirstName())
+                .lastName(instructor.getLastName())
+                .specialization(instructor.getSpecialization())
+                .groupName(instructorRepository.getAllGroupName(id))
+                .studentCount(instructorRepository.getAllStudentSize(id))
+                .build();
+
     }
 
     @Override

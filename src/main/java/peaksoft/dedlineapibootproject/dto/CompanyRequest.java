@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.intellij.lang.annotations.Pattern;
 import peaksoft.dedlineapibootproject.entity.Instructor;
+import peaksoft.dedlineapibootproject.enums.Country;
 
 import java.util.List;
 
@@ -13,20 +15,13 @@ import java.util.List;
 
 public class CompanyRequest {
     private String name;
-    private String country;
+    private Country country;
     private String address;
+    @Pattern("\\+996\\{9}")
     private String phoneNumber;
-    private List<Instructor>instructors;
 
-    public CompanyRequest(String name, String country, String address, String phoneNumber, List<Instructor> instructors) {
-        this.name = name;
-        this.country = country;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.instructors = instructors;
-    }
 
-    public CompanyRequest(String name, String country, String address, String phoneNumber) {
+    public CompanyRequest(String name, Country country, String address, String phoneNumber) {
         this.name = name;
         this.country = country;
         this.address = address;

@@ -82,6 +82,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public List<GroupResponse> getAllStudentCountFromCourse(Long courseId) {
+        return groupRepository.getAllFromGroupStudentCount(courseId);
+    }
+
+    @Override
     public SimpleResponse assignGroupToCourse(Long courseId, Long groupId) {
         Course course =
                 courseRepository.findCourseById(courseId).orElseThrow(()

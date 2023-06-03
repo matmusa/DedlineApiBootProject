@@ -13,7 +13,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 
 
     @Query("select new peaksoft.dedlineapibootproject.dto.CourseResponse" +
-            "(c.id,c.courseName,c.description)from Course c")
+            "(c.id,c.courseName,c.description)from Course c order by c.dateOfStart")
     List<CourseResponse>getAllCourses();
     Optional<Course>findCourseById(Long id);
 

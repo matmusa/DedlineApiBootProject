@@ -13,7 +13,7 @@ public interface InstructorService {
     List<InstructorResponse> getAllInstructors();
 
     InstructorResponse updateInstructorById(Long id, InstructorRequest instructorRequest);
-
+    CompanyGetAllInformationResponse getAllInformationCompanyById(Long id);
     SimpleResponse assignInstructorToCompany(Long companyId, Long instructorId);
 
 

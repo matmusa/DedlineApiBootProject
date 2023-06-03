@@ -1,6 +1,7 @@
 package peaksoft.dedlineapibootproject.service;
 
 import jdk.dynalink.linker.support.SimpleLinkRequest;
+import peaksoft.dedlineapibootproject.dto.CompanyGetAllInformationResponse;
 import peaksoft.dedlineapibootproject.dto.CompanyRequest;
 import peaksoft.dedlineapibootproject.dto.CompanyResponse;
 import peaksoft.dedlineapibootproject.dto.SimpleResponse;
@@ -11,9 +12,14 @@ public interface CompanyService {
     CompanyResponse saveCompany(CompanyRequest companyRequest);
 
     CompanyResponse getCompanyById(Long id);
+
     CompanyResponse getAllCompanyById(Long id);
+
+    CompanyGetAllInformationResponse getAllInformationCompanyById(Long id);
+
     List<CompanyResponse> getAllCompanies();
-    CompanyResponse updateCompany(Long id,CompanyRequest companyRequest);
+
+    CompanyResponse updateCompany(Long id, CompanyRequest companyRequest);
 
     SimpleResponse deleteCompanyById(Long id);
 

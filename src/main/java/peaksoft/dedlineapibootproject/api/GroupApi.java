@@ -49,5 +49,9 @@ import java.util.List;
                     "assign","instructor with id "
                     +courseId+" assign to company with id "+groupId);
         }
+        @GetMapping("count/{groupId}")
+        public List<GroupResponse>getAllStudentCountFromGroup(@PathVariable Long groupId){
+          return   service.getAllStudentCountFromCourse(groupId);
+        }
 
     }

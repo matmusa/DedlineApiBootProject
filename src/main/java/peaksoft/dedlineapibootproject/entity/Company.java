@@ -1,9 +1,11 @@
 package peaksoft.dedlineapibootproject.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import peaksoft.dedlineapibootproject.enums.Country;
 
 import java.util.List;
 
@@ -21,7 +23,8 @@ import java.util.List;
 
         private Long id;
         private String name;
-        private String country;
+        @Enumerated(EnumType.STRING)
+        private Country country;
         private String address;
         private String phoneNumber;
         @OneToMany(mappedBy = "company",cascade =
@@ -34,6 +37,7 @@ import java.util.List;
                         CascadeType.MERGE,
                         CascadeType.REFRESH,
                 CascadeType.REMOVE})
+
         private List<Instructor>instructors;
 
     }

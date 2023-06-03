@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.intellij.lang.annotations.Pattern;
+import org.springframework.beans.factory.annotation.Value;
 import peaksoft.dedlineapibootproject.enums.Gender;
 import peaksoft.dedlineapibootproject.enums.StudyFormat;
 
@@ -24,10 +26,14 @@ public class Student {
     private Long id;
     private String firstName;
     private String lastName;
+    @Pattern("\\+996\\{9}")
     private String phoneNumber;
     @Column(unique = true)
     private String email;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "study_format", columnDefinition = "VARCHAR(255)")
     private StudyFormat studyFormat;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private Boolean isBlocked;
     @ManyToOne(cascade = {

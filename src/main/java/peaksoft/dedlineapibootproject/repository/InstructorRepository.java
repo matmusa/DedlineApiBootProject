@@ -4,6 +4,8 @@ import org.springframework.boot.autoconfigure.jackson.JacksonProperties;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 import peaksoft.dedlineapibootproject.dto.InstructorResponse;
 import peaksoft.dedlineapibootproject.entity.Instructor;
 
@@ -19,6 +21,7 @@ public interface InstructorRepository extends JpaRepository<Instructor, Long> {
     List<InstructorResponse> getAllInstructors();
 
     Optional<Instructor> findInstructorById(Long id);
+
 
 
 }
